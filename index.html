@@ -1,1 +1,131 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Layla!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #ffe6f0;
+      color: #333;
+      overflow-x: hidden;
+    }
+    .hero {
+      text-align: center;
+      padding: 100px 20px 50px;
+      background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+      color: white;
+    }
+    .hero h1 {
+      font-size: 60px;
+      margin: 0 0 10px;
+    }
+    .hero p {
+      font-size: 20px;
+      margin: 0;
+    }
+    .note {
+      padding: 50px 20px;
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+    .playlist {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .playlist iframe {
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      height: 300px;
+      border: none;
+    }
+    .closing {
+      text-align: center;
+      padding: 30px 20px 80px;
+      font-size: 18px;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="hero">
+  <h1>Happy Birthday, Layla 🎉</h1>
+  <p>A little something for you, Tadow.</p>
+</div>
+
+<div class="note">
+  <p>
+    You’re one of the most beautiful people I’ve met — inside and out. I wish I could be there today, but for now, here’s a tiny space made just for you. May this year surprise you in the best ways and bring you everything you secretly hope for.
+  </p>
+</div>
+
+<div class="playlist">
+  <h2>Your Birthday Playlist 🎶</h2>
+  <iframe src="https://www.youtube.com/embed/videoseries?list=PLQdVORd3FoZT3zh0M0uPzT-P3cu6Uytzj" allowfullscreen></iframe>
+</div>
+
+<div class="closing">
+  Here’s to you, your day, and the year ahead. I’m rooting for you always ❤️
+</div>
+
+<script>
+// Simple Confetti
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for(let i=0; i<200; i++){
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 6 + 4,
+    d: Math.random() * 20 + 10
+  });
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = 'rgba(255,182,193,0.9)';
+  ctx.beginPath();
+  for(let i=0; i<particles.length; i++){
+    let p = particles[i];
+    ctx.moveTo(p.x, p.y);
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+  }
+  ctx.fill();
+  update();
+}
+function update(){
+  for(let i=0; i<particles.length; i++){
+    let p = particles[i];
+    p.y += Math.cos(p.d) + 1 + p.r/2;
+    p.x += Math.sin(p.d);
+
+    if(p.x > canvas.width+5 || p.x < -5 || p.y > canvas.height){
+      p.x = Math.random() * canvas.width;
+      p.y = -10;
+    }
+  }
+}
+setInterval(draw, 30);
+</script>
+
+</body>
+</html>
